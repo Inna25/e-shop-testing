@@ -3,27 +3,25 @@ package pageobject_model.page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class SearchedProductPage {
-    private WebDriver driver;
+public class SearchedProductPage extends BasePage{
 
-    @FindBy(xpath = "//span[@class='producRangeName' and text()='LIBRE']")
+    @FindBy(xpath = "//span[@class='producRangeName']")
     private WebElement productRangeName;
 
-    @FindBy(xpath = "//span[@class='productName' and text()='Eau de parfum intense']")
+    @FindBy(xpath = "//span[@class='productName']")
     private WebElement productName;
 
     public SearchedProductPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
-    public boolean productFound(){
-        if (productName != null && productRangeName != null) {
-            return true;
-        } else {
-            return false;
-        }
+    public WebElement getProductRangeName() {
+        return productRangeName;
     }
+
+    public WebElement getProductName() {
+        return productName;
+    }
+
 }

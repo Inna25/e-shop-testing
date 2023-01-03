@@ -1,19 +1,14 @@
 package pageobject_model.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
-public class HomePage {
+public class HomePage extends BasePage{
     private static final String HOMEPAGE_URL = "https://www.marionnaud.fr/";
-    private WebDriver driver;
+    private static final String BANNER_CLOSE_BUTTON = "onetrust-accept-btn-handler";
 
     @FindBy(xpath = "//*[@id='top-bar-search-text']//*[@name='text']")
     private WebElement searchInput;
@@ -23,18 +18,16 @@ public class HomePage {
 
     @FindBy (xpath = "//div[@class='nav-produit sub-nav sub-nav-active']//a[@title = 'Parfum']")
     private WebElement menuItemParfum;
-//    @FindBy(id = "onetrust-accept-btn-handler")
-//    private WebElement bannerCloseButton;
+
+    @FindBy(id = BANNER_CLOSE_BUTTON)
+    private WebElement bannerCloseButton;
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public HomePage openPage(){
         driver.get(HOMEPAGE_URL);
-        //I can't create this wait method!!!
-       // new WebDriverWait(driver, Duration.ofSeconds(10)).until(CustomConditions.jQueryAJAXCompleted());
         return this;
     }
 
@@ -50,18 +43,9 @@ public class HomePage {
     }
 
     public HomePage closeBanner() {
-        if (waitForElementVisibleBy(driver, By.id("onetrust-accept-btn-handler"))) {
-            WebElement bannerCloseButton = driver.findElement(By.id("onetrust-accept-btn-handler"));
+        if (waitForElementVisibleBy(driver, By.id(BANNER_CLOSE_BUTTON))) {
             bannerCloseButton.click();
         }
         return this;
-    }
-    private static boolean waitForElementVisibleBy(WebDriver driver, By by){
-        try {
-            new WebDriverWait(driver, Duration.ofSeconds(1)).until(ExpectedConditions.presenceOfElementLocated(by));
-            return true;
-        } catch (TimeoutException exp){
-            return false;
-        }
     }
 }

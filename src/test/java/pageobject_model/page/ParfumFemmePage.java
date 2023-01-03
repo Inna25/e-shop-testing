@@ -1,32 +1,34 @@
 package pageobject_model.page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class ParfumFemmePage {
-    private WebDriver driver;
+public class ParfumFemmePage extends BasePage{
+    private static final String FULL_BRANDS_LIST = "//div[@class='facet Marque']//li[text()='Voir tout']";
+    private static final String FILTER_BY_BRAND = "//label[contains(text(),'Yves saint')]/..";
+    private static final String SEARCHED_PRODUCT = "//*[@title = 'Eau de parfum intense']";
 
-    @FindBy(xpath = "//div[@class='facet Marque']//li[text()='Voir tout']")
+    @FindBy(xpath = FULL_BRANDS_LIST)
     private WebElement fullBrandsListButton;
 
-    @FindBy(xpath = "//label[contains(text(),'Yves')]")
+    @FindBy(xpath = FILTER_BY_BRAND)
     private WebElement filterByBrand;
 
-    @FindBy(xpath = "//*[@class='primImg primaryImage_prodcat'][@title = 'Eau de parfum intense']" )
+    @FindBy(xpath = SEARCHED_PRODUCT)
     private WebElement searchedProduct;
 
     public ParfumFemmePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
-    public SearchedProductPage gotoSearchProductPage() throws InterruptedException {
+    public SearchedProductPage gotoSearchedProductPage() {
+        waitForElementVisibleBy(driver, By.xpath(FULL_BRANDS_LIST));
         fullBrandsListButton.click();
-        Thread.sleep(5000);
+        waitForElementVisibleBy(driver, By.xpath(FILTER_BY_BRAND));
         filterByBrand.click();
-        Thread.sleep(8000);
+        waitForElementVisibleBy(driver, By.xpath(SEARCHED_PRODUCT));
         searchedProduct.click();
         return new SearchedProductPage(driver);
     }
