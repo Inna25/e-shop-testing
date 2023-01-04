@@ -16,12 +16,12 @@ public class SearchedProductPage extends BasePage{
         super(driver);
     }
 
-    public WebElement getProductRangeName() {
-        return productRangeName;
+    public String getProductRangeName() {
+        return productRangeName.getText();
     }
 
-    public WebElement getProductName() {
-        return productName;
+    public String getProductName() {
+        return productName.getText();
     }
 
 }
