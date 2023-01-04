@@ -26,7 +26,7 @@ public class MarionnaudTest {
     public void searchProductResultsNotEmptyTest() {
         HomePage homePage = new HomePage(driver).openPage().closeBanner();
         int searchResultsNumber = homePage
-                .searchForTerm("Libre")
+                .searchForTerm(SEARCHED_PRODUCT_RANGE_NAME)
                 .countSearchResults();
         Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
     }
