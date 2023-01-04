@@ -24,11 +24,11 @@ public class ParfumFemmePage extends BasePage{
     }
 
     public SearchedProductPage gotoSearchedProductPage() {
-        waitForElementVisibleBy(driver, By.xpath(FULL_BRANDS_LIST));
+        waitForElementClickableBy(By.xpath(FULL_BRANDS_LIST));
         fullBrandsListButton.click();
-        waitForElementVisibleBy(driver, By.xpath(FILTER_BY_BRAND));
+        waitForElementClickableBy(By.xpath(FILTER_BY_BRAND));
         filterByBrand.click();
-        waitForElementVisibleBy(driver, By.xpath(SEARCHED_PRODUCT));
+        waitForElementClickableBy(By.xpath(SEARCHED_PRODUCT));
         searchedProduct.click();
         return new SearchedProductPage(driver);
     }

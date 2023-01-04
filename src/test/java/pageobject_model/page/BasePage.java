@@ -14,10 +14,11 @@ public abstract class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver, this);
+        PageFactory
+                .initElements(driver, this);
     }
 
-    protected static boolean waitForElementVisibleBy(WebDriver driver, By by) {
+    protected boolean waitForElementClickableBy(By by) {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(1)).until(ExpectedConditions.elementToBeClickable(by));
             return true;

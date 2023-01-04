@@ -26,7 +26,7 @@ public class MarionnaudTest {
     public void searchProductResultsNotEmptyTest() {
         HomePage homePage = new HomePage(driver).openPage().closeBanner();
         int searchResultsNumber = homePage
-                .searchForTerm("Libre11")
+                .searchForTerm("Libre")
                 .countSearchResults();
         Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
     }
@@ -46,8 +46,8 @@ public class MarionnaudTest {
         SearchedProductPage searchedProductPage = homePage.gotoParfumPage()
                 .gotoParfumFemmePage()
                 .gotoSearchedProductPage();
-        Assert.assertEquals(searchedProductPage.getProductName().getText(), SEARCHED_PRODUCT_NAME);
-        Assert.assertEquals(searchedProductPage.getProductRangeName().getText(), SEARCHED_PRODUCT_RANGE_NAME);
+        Assert.assertEquals(searchedProductPage.getProductName(), SEARCHED_PRODUCT_NAME);
+        Assert.assertEquals(searchedProductPage.getProductRangeName(), SEARCHED_PRODUCT_RANGE_NAME);
     }
 
     @AfterMethod(alwaysRun = true)

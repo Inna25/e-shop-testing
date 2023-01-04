@@ -43,7 +43,7 @@ public class HomePage extends BasePage{
     }
 
     public HomePage closeBanner() {
-        if (waitForElementVisibleBy(driver, By.id(BANNER_CLOSE_BUTTON))) {
+        if (waitForElementClickableBy(By.id(BANNER_CLOSE_BUTTON))) {
             bannerCloseButton.click();
         }
         return this;
