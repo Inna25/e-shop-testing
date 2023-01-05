@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-
 public class HomePage extends BasePage{
     private static final String HOMEPAGE_URL = "https://www.marionnaud.fr/";
     private static final String BANNER_CLOSE_BUTTON = "onetrust-accept-btn-handler";
@@ -34,7 +33,7 @@ public class HomePage extends BasePage{
     public SearchByTermsResultsPage searchForTerm(String term){
         searchInput.sendKeys(term);
         searchButton.click();
-        return new SearchByTermsResultsPage(driver, term);
+        return new SearchByTermsResultsPage(driver);
     }
 
     public ParfumPage gotoParfumPage(){

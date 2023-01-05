@@ -8,14 +8,11 @@ import java.util.List;
 
 public class SearchByTermsResultsPage extends BasePage{
 
-    private String searchTerm;
-
     @FindBy (xpath = "//*[@class = 'product-listing product-grid']/li")
     private List<WebElement> generalSearchResults;
 
-    public SearchByTermsResultsPage(WebDriver driver, String searchTerm) {
+    public SearchByTermsResultsPage(WebDriver driver) {
         super(driver);
-        this.searchTerm = searchTerm;
     }
     public int countSearchResults(){
         System.out.println("Search results number for requested term: "+ generalSearchResults.size());
