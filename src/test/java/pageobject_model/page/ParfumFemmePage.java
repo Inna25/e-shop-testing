@@ -3,6 +3,7 @@ package pageobject_model.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class ParfumFemmePage extends BasePage{
@@ -24,10 +25,14 @@ public class ParfumFemmePage extends BasePage{
     }
 
     public SearchedProductPage gotoSearchedProductPage() {
+        Actions builder = new Actions(driver);
         waitForElementClickableBy(By.xpath(FULL_BRANDS_LIST));
         fullBrandsListButton.click();
         waitForElementClickableBy(By.xpath(FILTER_BY_BRAND));
-        filterByBrand.click();
+
+        builder.moveToElement(filterByBrand)
+                .click(filterByBrand)
+                .perform();
         waitForElementClickableBy(By.xpath(SEARCHED_PRODUCT));
         searchedProduct.click();
         return new SearchedProductPage(driver);
