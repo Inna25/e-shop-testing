@@ -1,13 +1,11 @@
 package pageobject_model.test;
 
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import pageobject_model.page.HomePage;
 import pageobject_model.page.SearchedProductPage;
@@ -15,13 +13,12 @@ import pageobject_model.page.SearchedProductPage;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MarionnaudTest {
-    private WebDriver driver;
+public class MarionnaudTest extends BaseTest{
+    private HomePage homePage;
 
     private final static String SEARCHED_PRODUCT_NAME = "Eau de parfum intense";
     private final static String SEARCHED_PRODUCT_RANGE_NAME = "LIBRE";
     private final static String SEARCHED_PRODUCT_RANGE_NON_EXISTENT_NAME = "LIBRE NON EXISTENT";
-    private HomePage homePage;
 
     public void browserSetup(String browserName) {
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -57,9 +54,9 @@ public class MarionnaudTest {
 
     @Test(description = "Some products contained 'Libre' in the name were found while using a mouse")
     public void searchProductResultsNotEmptyTest() {
-        browserSetup("chrome"); //firefox
+        browserSetup("chrome");
         int searchResultsNumber = homePage
-                .searchForTermUsingMouse(SEARCHED_PRODUCT_RANGE_NAME)
+                .searchForTermUsingSearchButtonClick(SEARCHED_PRODUCT_RANGE_NAME)
                 .countSearchResults();
         Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
     }
@@ -77,7 +74,7 @@ public class MarionnaudTest {
     public void certainProductIsOutTest() {
         browserSetup("firefox");
         int searchResultsNumber = homePage
-                .searchForTermUsingMouse(SEARCHED_PRODUCT_RANGE_NON_EXISTENT_NAME)
+                .searchForTermUsingSearchButtonClick(SEARCHED_PRODUCT_RANGE_NON_EXISTENT_NAME)
                 .countSearchResults();
         Assert.assertTrue(searchResultsNumber == 0, "Products were found ");
     }
@@ -96,11 +93,5 @@ public class MarionnaudTest {
     public void appearsSubmenuForParfumMenuItem() {
         browserSetup("chrome");
         Assert.assertTrue(homePage.hoverOverMenuItemParfum());
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void browserTearDown() {
-        driver.quit();
-        driver = null;
     }
 }
