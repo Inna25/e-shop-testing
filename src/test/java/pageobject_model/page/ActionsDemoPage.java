@@ -53,16 +53,16 @@ public class ActionsDemoPage extends BasePage {
 
     public void deletePicture(){
         driver.switchTo().frame(driver.findElement(By.cssSelector(FRAME)));
-        clickUsingJavascript(pictureToTrashButton, PICTURE_TO_TRASH_BUTTON, PICTURE_IN_TRASH);
+        clickUsingJavascript(pictureToTrashButton, By.xpath(PICTURE_TO_TRASH_BUTTON), By.xpath(PICTURE_IN_TRASH));
     }
     public boolean restorePicture(){
-        clickUsingJavascript(pictureRestoreFromTrashButton, PICTURE_RESTORE_FROM_TRASH_BUTTON, PICTURE);
+        clickUsingJavascript(pictureRestoreFromTrashButton, By.xpath(PICTURE_RESTORE_FROM_TRASH_BUTTON), By.xpath(PICTURE));
         return picture.isDisplayed();
     }
-    private void clickUsingJavascript(WebElement elementForClick, String locationBeforeClick, String locationAfterClick){
+    private void clickUsingJavascript(WebElement elementForClick, By locationBeforeClick, By locationAfterClick){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        waitForElementClickableBy(By.xpath(locationBeforeClick));
+        waitForElementClickableBy(locationBeforeClick);
         js.executeScript("arguments[0].click();", elementForClick);
-        waitForElementClickableBy(By.xpath(locationAfterClick));
+        waitForElementClickableBy(locationAfterClick);
     }
 }
