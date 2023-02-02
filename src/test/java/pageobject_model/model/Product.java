@@ -5,10 +5,22 @@ import java.util.Objects;
 public class Product {
     private String name;
     private String rangeName;
+    private String brandXpath;
+    private String nameXpath;
 
-    public Product(String name, String rangeName) {
+    public Product(String name, String rangeName, String brandXpath, String nameXpath) {
         this.name = name;
         this.rangeName = rangeName;
+        this.brandXpath = brandXpath;
+        this.nameXpath = nameXpath;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRangeName() {
@@ -19,12 +31,20 @@ public class Product {
         this.rangeName = rangeName;
     }
 
-    public String getName() {
-        return name;
+    public String getBrandXpath() {
+        return brandXpath;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrandXpath(String brandXpath) {
+        this.brandXpath = brandXpath;
+    }
+
+    public String getNameXpath() {
+        return nameXpath;
+    }
+
+    public void setNameXpath(String nameXpath) {
+        this.nameXpath = nameXpath;
     }
 
     @Override
