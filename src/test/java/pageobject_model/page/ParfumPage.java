@@ -18,5 +18,6 @@ public class ParfumPage extends BasePage{
         waitForElementClickableBy(By.xpath(MENU_ITEM_PARFUM_FEMME));
         menuItemParfumFemme.click();
         return new ParfumFemmePage(driver);
+        //comment
     }
 }
