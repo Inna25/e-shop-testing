@@ -1,44 +1,40 @@
 package pageobject_model.page;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import pageobject_model.model.Product;
 
 public class ParfumFemmePage extends BasePage{
     private static final String FULL_BRANDS_LIST = "//div[@class='facet Marque']//li[text()='Voir tout']";
-
-    private final Logger logger = LogManager.getRootLogger();
+    private static final String FILTER_BY_BRAND = "//label[contains(text(),'Yves saint')]/..";
+    private static final String SEARCHED_PRODUCT = "//*[@title = 'Eau de parfum intense']";
 
     @FindBy(xpath = FULL_BRANDS_LIST)
     private WebElement fullBrandsListButton;
+
+    @FindBy(xpath = FILTER_BY_BRAND)
+    private WebElement filterByBrand;
+
+    @FindBy(xpath = SEARCHED_PRODUCT)
+    private WebElement searchedProduct;
 
     public ParfumFemmePage(WebDriver driver) {
         super(driver);
     }
 
-    public SearchedProductPage gotoSearchedProductPage(Product searchedProduct) {
-        String productNameXpath = searchedProduct.getNameXpath();
+    public SearchedProductPage gotoSearchedProductPage() {
         Actions builder = new Actions(driver);
         waitForElementClickableBy(By.xpath(FULL_BRANDS_LIST));
         fullBrandsListButton.click();
-        logger.info("Full list of brands expanded");
+        waitForElementClickableBy(By.xpath(FILTER_BY_BRAND));
 
-        WebElement productBrand = driver.findElement(By.xpath(searchedProduct.getBrandXpath()));
-        waitForElementClickableBy(By.xpath(searchedProduct.getBrandXpath()));
-        builder.moveToElement(productBrand)
-                .click(productBrand)
+        builder.moveToElement(filterByBrand)
+                .click(filterByBrand)
                 .perform();
-        logger.info("Searched brand: "+ searchedProduct.getRangeName()+ " filtered");
-
-        waitForElementClickableBy(By.xpath(productNameXpath));
-        driver.findElement(By.xpath(productNameXpath)).click();
-        logger.info("Searched product selected");
-
+        waitForElementClickableBy(By.xpath(SEARCHED_PRODUCT));
+        searchedProduct.click();
         return new SearchedProductPage(driver);
     }
 }

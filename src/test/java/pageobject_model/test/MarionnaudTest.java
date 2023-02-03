@@ -23,7 +23,7 @@ public class MarionnaudTest extends BaseTest{
         homePage = new HomePage(driver).openPage().closeBanner();
     }
 
-    @Test(description = "Some products contained keyword in the name were found while using a mouse")
+    @Test(description = "Some products contained 'Libre' in the name were found while using a mouse")
     public void searchProductResultsNotEmptyTest() {
         Product searchedProduct = ProductCreator.withRangeNameOnly();
         int searchResultsNumber = homePage
@@ -32,7 +32,7 @@ public class MarionnaudTest extends BaseTest{
         Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
     }
 
-    @Test(description = "Some products contained keyword in the name were found while using the keyboard")
+    @Test(description = "Some products contained 'Libre' in the name were found while using the keyboard")
     public void searchProductResultsNotEmptyUsingKeyboardTest() {
         Product searchedProduct = ProductCreator.withRangeNameOnly();
         int searchResultsNumber = homePage
@@ -51,10 +51,10 @@ public class MarionnaudTest extends BaseTest{
 
     @Test(description = "Search for a certain product using menu")
     public void searchForCertainProductUsingMenuTest() {
-        Product searchedProduct = ProductCreator.withAllProductParameters();
+        Product searchedProduct = ProductCreator.withProductNameAndRangeName();
         SearchedProductPage searchedProductPage = homePage.gotoParfumPage()
                 .gotoParfumFemmePage()
-                .gotoSearchedProductPage(searchedProduct);
+                .gotoSearchedProductPage();
         assertThat(searchedProductPage.getProductName(), is(equalTo(searchedProduct.getName())));
         assertThat(searchedProductPage.getProductRangeName(), is(equalTo(searchedProduct.getRangeName())));
     }
