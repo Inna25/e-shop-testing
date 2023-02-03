@@ -16,18 +16,20 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TestListener implements ITestListener {
-    private Logger log = LogManager.getRootLogger();
+    private Logger logger = LogManager.getRootLogger();
 
     public void onTestStart(ITestResult iTestResult) {
-
+        logger.info("on test method " + getTestMethodName(iTestResult) + " start");
     }
 
     public void onTestSuccess(ITestResult iTestResult) {
-
+        logger.info("on test method " + getTestMethodName(iTestResult) + " success");
     }
 
     public void onTestFailure(ITestResult iTestResult) {
         saveScreenshot();
+        logger.info("on test method " + getTestMethodName(iTestResult) + " failure");
+        logger.info("Screenshot was saved in target/screenshot folder" );
     }
 
     public void onTestSkipped(ITestResult iTestResult) {
@@ -56,12 +58,15 @@ public class TestListener implements ITestListener {
                             + getCurrentTimeAsString() +
                             ".png"));
         } catch (IOException e) {
-            log.error("Failed to save screenshot: " + e.getLocalizedMessage());
+            logger.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }
     }
 
     private String getCurrentTimeAsString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "uuuu-MM-dd_HH-mm-ss" );
         return ZonedDateTime.now().format(formatter);
+    }
+    private static String getTestMethodName(ITestResult result) {
+        return result.getMethod().getConstructorOrMethod().getName();
     }
 }
