@@ -1,48 +1,78 @@
 package pageobject_model.test;
 
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobject_model.model.Product;
 import pageobject_model.page.HomePage;
 import pageobject_model.page.SearchedProductPage;
-import pageobject_model.service.ProductCreator;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MarionnaudTest extends BaseTest{
     private HomePage homePage;
+
+    private final static String SEARCHED_PRODUCT_NAME = "Eau de parfum intense";
+    private final static String SEARCHED_PRODUCT_RANGE_NAME = "LIBRE";
     private final static String SEARCHED_PRODUCT_RANGE_NON_EXISTENT_NAME = "LIBRE NON EXISTENT";
 
-    @BeforeMethod
-    @Override
-    public void setUp(){
-        super.setUp();
+    public void browserSetup(String browserName) {
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setPlatform(Platform.WIN10);
+        caps.setBrowserName(browserName);
+        switch (browserName) {
+            case "chrome":
+                chromeIncognitoMode(caps);
+                break;
+            case "firefox":
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.addArguments("-private");
+                caps.setCapability("moz:firefoxOptions", firefoxOptions);
+                break;
+            default:
+                chromeIncognitoMode(caps);
+                break;
+        }
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), caps);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        driver.manage().window().maximize();
         homePage = new HomePage(driver).openPage().closeBanner();
+    }
+
+    private void chromeIncognitoMode(DesiredCapabilities caps) {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("incognito");
+        caps.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
     }
 
     @Test(description = "Some products contained 'Libre' in the name were found while using a mouse")
     public void searchProductResultsNotEmptyTest() {
-        Product searchedProduct = ProductCreator.withRangeNameOnly();
+        browserSetup("chrome");
         int searchResultsNumber = homePage
-                .searchForTermUsingSearchButtonClick(searchedProduct.getRangeName())
+                .searchForTermUsingSearchButtonClick(SEARCHED_PRODUCT_RANGE_NAME)
                 .countSearchResults();
         Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
     }
 
     @Test(description = "Some products contained 'Libre' in the name were found while using the keyboard")
     public void searchProductResultsNotEmptyUsingKeyboardTest() {
-        Product searchedProduct = ProductCreator.withRangeNameOnly();
+        browserSetup("chrome");
         int searchResultsNumber = homePage
-                .searchForTermUsingKeyboard(searchedProduct.getRangeName())
+                .searchForTermUsingKeyboard(SEARCHED_PRODUCT_RANGE_NAME)
                 .countSearchResults();
         Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
     }
 
     @Test(description = "Make sure that specified product is out")
     public void certainProductIsOutTest() {
+        browserSetup("firefox");
         int searchResultsNumber = homePage
                 .searchForTermUsingSearchButtonClick(SEARCHED_PRODUCT_RANGE_NON_EXISTENT_NAME)
                 .countSearchResults();
@@ -51,16 +81,17 @@ public class MarionnaudTest extends BaseTest{
 
     @Test(description = "Search for a certain product using menu")
     public void searchForCertainProductUsingMenuTest() {
-        Product searchedProduct = ProductCreator.withProductNameAndRangeName();
+        browserSetup("chrome");
         SearchedProductPage searchedProductPage = homePage.gotoParfumPage()
                 .gotoParfumFemmePage()
                 .gotoSearchedProductPage();
-        assertThat(searchedProductPage.getProductName(), is(equalTo(searchedProduct.getName())));
-        assertThat(searchedProductPage.getProductRangeName(), is(equalTo(searchedProduct.getRangeName())));
+        Assert.assertEquals(searchedProductPage.getProductName(), SEARCHED_PRODUCT_NAME);
+        Assert.assertEquals(searchedProductPage.getProductRangeName(), SEARCHED_PRODUCT_RANGE_NAME);
     }
 
     @Test
     public void appearsSubmenuForParfumMenuItem() {
+        browserSetup("chrome");
         Assert.assertTrue(homePage.hoverOverMenuItemParfum());
     }
 }
