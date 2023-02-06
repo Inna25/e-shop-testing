@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Smoke" verbose="1">
+    <test name="ProductSearch">
+        <classes>
+            <class name="pageobject_model.test.MarionnaudTest" />
+        </classes>
+    </test>
+</suite>
