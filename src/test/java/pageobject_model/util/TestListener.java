@@ -27,9 +27,8 @@ public class TestListener implements ITestListener {
     }
 
     public void onTestFailure(ITestResult iTestResult) {
-        saveScreenshot();
         logger.info("on test method " + getTestMethodName(iTestResult) + " failure");
-        logger.info("Screenshot was saved in target/screenshot folder" );
+        saveScreenshot();
     }
 
     public void onTestSkipped(ITestResult iTestResult) {
@@ -53,10 +52,13 @@ public class TestListener implements ITestListener {
                 .getDriver())
                 .getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(screenCapture, new File(
+            File screenCaptureInScreenshotsFolder = new File(
                     ".//target/screenshots/"
                             + getCurrentTimeAsString() +
-                            ".png"));
+                            ".png");
+            FileUtils.copyFile(screenCapture, screenCaptureInScreenshotsFolder);
+            logger.info("Screenshot was saved in " + System.getProperty("user.dir") +
+                    screenCaptureInScreenshotsFolder.getPath().substring(1));
         } catch (IOException e) {
             logger.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }

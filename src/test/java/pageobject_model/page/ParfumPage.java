@@ -23,6 +23,5 @@ public class ParfumPage extends BasePage{
         menuItemParfumFemme.click();
         logger.info("Switched to the Parfum Femme page");
         return new ParfumFemmePage(driver);
-        //comment ccc
     }
 }
