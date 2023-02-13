@@ -1,16 +1,17 @@
 package pageobject_model.test;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Listeners;
 import pageobject_model.driver.DriverManager;
 import pageobject_model.driver.DriverManagerFactory;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
 import pageobject_model.util.TestListener;
 
 @Listeners({TestListener.class})
 public class BaseTest {
-    protected WebDriver driver;
+    protected WebDriver driver;         //protected WebDriver driver;
     private DriverManager driverManager;
 
     @BeforeMethod

@@ -2,6 +2,7 @@ package pageobject_model.page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -33,11 +34,12 @@ public class HomePage extends BasePage{
 
     public HomePage(WebDriver driver) {
         super(driver);
-    }
+    }                                                    //public HomePage(WebDriver driver) {        super(driver);}
 
     public HomePage openPage(){
         driver.get(HOMEPAGE_URL);
-        ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+        waitForElementClickableBy(By.xpath("//div[@class='nav-produit sub-nav sub-nav-active']//a[@title = 'Parfum']")); //((WebDriverClickWaiting)driver)
+        //((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");      //waiting for the page loading complete
         logger.info("Home page is opened");
         return this;
     }
@@ -64,8 +66,11 @@ public class HomePage extends BasePage{
     }
 
     public boolean hoverOverMenuItemParfum(){
+
         Actions builder = new Actions(driver);
-        builder.moveToElement(menuItemParfum).build().perform();
+        builder.moveToElement(menuItemParfum);
+        builder.build();
+        builder.perform(); //doesn't work - hover over on menu item Parfum and wait menu item Parfum Femme appearance
         waitForElementClickableBy(By.xpath(MENU_ITEM_PARFUM_FEMME_XPATH));
         logger.info("Parfum Femme menu item is displayed");
         return menuItemParfumFemme.isDisplayed();

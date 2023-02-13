@@ -14,12 +14,11 @@ public class SearchByTermsResultsPage extends BasePage{
     @FindBy (xpath = "//*[@class = 'product-listing product-grid']/li")
     private List<WebElement> generalSearchResults;
 
-    public SearchByTermsResultsPage(WebDriver driver) {
+    public SearchByTermsResultsPage(WebDriver driver) {         //public SearchByTermsResultsPage(WebDriver driver)
         super(driver);
     }
     public int countSearchResults(){
         logger.info("Search results number for requested term: " + generalSearchResults.size());
-
         return generalSearchResults.size();
     }
 }

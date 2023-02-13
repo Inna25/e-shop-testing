@@ -18,7 +18,7 @@ public class ChromeDriverManager extends DriverManager{
     protected void startService() {
         if (null == chService) {
             try {
-                chService = new ChromeDriverService.Builder()   //Builder()
+                chService = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File("C:\\_webdriver\\chromedriver.exe"))
                         .usingAnyFreePort()
                         .build();
@@ -44,6 +44,6 @@ public class ChromeDriverManager extends DriverManager{
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        driver = new ChromeDriver(chService, options);
+        driver = new WebDriverClickWaiting(new ChromeDriver(chService, options));
     }
 }
