@@ -12,7 +12,7 @@ public class SearchedProductPage extends BasePage{
     @FindBy(xpath = "//span[@class='productName']")
     private WebElement productName;
 
-    public SearchedProductPage(WebDriver driver) {          //public SearchedProductPage(WebDriver driver) {
+    public SearchedProductPage(WebDriver driver) {
 
         super(driver);
     }

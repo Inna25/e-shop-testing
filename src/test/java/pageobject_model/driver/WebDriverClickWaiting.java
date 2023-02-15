@@ -3,7 +3,6 @@ package pageobject_model.driver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Interactive;
 import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class WebDriverClickWaiting implements WebDriver, TakesScreenshot, Interactive {       //, TakesScreenshot
+public class WebDriverClickWaiting implements WebDriver, TakesScreenshot, Interactive, JavascriptExecutor {
 
     private WebDriver webDriver;
 
@@ -44,17 +43,8 @@ public class WebDriverClickWaiting implements WebDriver, TakesScreenshot, Intera
     @Override
     public WebElement findElement(By by) {
         WebElement element = webDriver.findElement(by);
-        waitForElementClickableBy(by);
+        WebDriverUtils.waitForElementClickableBy(webDriver, by);
         return element;
-    }
-
-    public boolean waitForElementClickableBy(By by) {
-        try {
-            new WebDriverWait(webDriver, Duration.ofSeconds(1)).until(ExpectedConditions.elementToBeClickable(by));
-            return true;
-        } catch (TimeoutException exp) {
-            return false;
-        }
     }
 
     @Override
@@ -111,5 +101,15 @@ public class WebDriverClickWaiting implements WebDriver, TakesScreenshot, Intera
     @Override
     public void resetInputState() {
         ((Interactive)webDriver).resetInputState();
+    }
+
+    @Override
+    public Object executeScript(String script, Object... args) {
+        return ((JavascriptExecutor)webDriver).executeScript(script, args);
+    }
+
+    @Override
+    public Object executeAsyncScript(String script, Object... args) {
+        return ((JavascriptExecutor)webDriver).executeScript(script, args);
     }
 }

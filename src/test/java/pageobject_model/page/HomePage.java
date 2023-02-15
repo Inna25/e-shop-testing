@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import pageobject_model.driver.WebDriverUtils;
 
 public class HomePage extends BasePage{
     private static final String HOMEPAGE_URL = "https://www.marionnaud.fr/";
@@ -34,12 +35,11 @@ public class HomePage extends BasePage{
 
     public HomePage(WebDriver driver) {
         super(driver);
-    }                                                    //public HomePage(WebDriver driver) {        super(driver);}
+    }
 
     public HomePage openPage(){
         driver.get(HOMEPAGE_URL);
-        waitForElementClickableBy(By.xpath("//div[@class='nav-produit sub-nav sub-nav-active']//a[@title = 'Parfum']")); //((WebDriverClickWaiting)driver)
-        //((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");      //waiting for the page loading complete
+        ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
         logger.info("Home page is opened");
         return this;
     }
@@ -66,18 +66,15 @@ public class HomePage extends BasePage{
     }
 
     public boolean hoverOverMenuItemParfum(){
-
         Actions builder = new Actions(driver);
-        builder.moveToElement(menuItemParfum);
-        builder.build();
-        builder.perform(); //doesn't work - hover over on menu item Parfum and wait menu item Parfum Femme appearance
-        waitForElementClickableBy(By.xpath(MENU_ITEM_PARFUM_FEMME_XPATH));
+        builder.moveToElement(menuItemParfum).build().perform();
+        WebDriverUtils.waitForElementClickableBy(driver, By.xpath(MENU_ITEM_PARFUM_FEMME_XPATH));
         logger.info("Parfum Femme menu item is displayed");
         return menuItemParfumFemme.isDisplayed();
     }
 
     public HomePage closeBanner() {
-        if (waitForElementClickableBy(By.id(BANNER_CLOSE_BUTTON_ID))) {
+        if (WebDriverUtils.waitForElementClickableBy(driver, By.id(BANNER_CLOSE_BUTTON_ID))) {
             bannerCloseButton.click();
             logger.info("Banner is closed");
         }

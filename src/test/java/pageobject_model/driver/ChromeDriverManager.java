@@ -44,6 +44,6 @@ public class ChromeDriverManager extends DriverManager{
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        driver = new WebDriverClickWaiting(new ChromeDriver(chService, options));
+        driver = new ChromeDriver(chService, options);
     }
 }

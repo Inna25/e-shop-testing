@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import pageobject_model.model.Product;
 
@@ -22,14 +23,17 @@ public class ParfumFemmePage extends BasePage{
 
     public SearchedProductPage gotoSearchedProductPage(Product searchedProduct) {
         String productNameXpath = searchedProduct.getNameXpath();
+        Actions builder = new Actions(driver);
         logger.info("Name of driver class: " + driver.getClass().getName());
 
         fullBrandsListButton.click();
         logger.info("Full list of brands expanded");
 
         WebElement productBrand = driver.findElement(By.xpath(searchedProduct.getBrandXpath()));
-        logger.info("Name of brand: " + productBrand.getText());
-        productBrand.click();
+        builder.moveToElement(productBrand)
+                .click(productBrand)
+                .perform();
+        logger.info("Searched brand: "+ searchedProduct.getRangeName()+ " filtered");
 
         driver.findElement(By.xpath(productNameXpath)).click();
         logger.info("Searched product selected");

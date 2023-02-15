@@ -11,7 +11,7 @@ import pageobject_model.util.TestListener;
 
 @Listeners({TestListener.class})
 public class BaseTest {
-    protected WebDriver driver;         //protected WebDriver driver;
+    protected WebDriver driver;
     private DriverManager driverManager;
 
     @BeforeMethod

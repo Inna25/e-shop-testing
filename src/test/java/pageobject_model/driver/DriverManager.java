@@ -3,7 +3,7 @@ package pageobject_model.driver;
 import org.openqa.selenium.WebDriver;
 
 public abstract class DriverManager {
-    protected WebDriver driver;         //protected WebDriver driver;
+    protected WebDriver driver;
     protected abstract void startService();
     protected abstract void stopService();
     protected abstract void createDriver();
@@ -14,12 +14,12 @@ public abstract class DriverManager {
             driver = null;
         }
     }
-    public WebDriver getDriver() {          //public WebDriver getDriver() {
+    public WebDriver getDriver() {
         if (null == driver) {
             startService();
             createDriver();
         }
-        //driver = new WebDriverClickWaiting(driver);
+        driver = new WebDriverClickWaiting(driver);
         driver.manage().window().maximize();
         return driver;
     }
