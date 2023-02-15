@@ -34,6 +34,6 @@ public class FirefoxDriverManager extends DriverManager{
         capabilities.setBrowserName("firefox");
         FirefoxOptions options = new FirefoxOptions();
         options.merge(capabilities);
-        driver = new WebDriverClickWaiting(new FirefoxDriver(ffService, options));
+        driver = new FirefoxDriver(ffService, options);
     }
 }
