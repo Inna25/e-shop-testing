@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import pageobject_model.driver.WebDriverUtils;
 
 public class ActionsDemoPage extends BasePage {
     private static final String ACTION_DEMO_PAGE_URL = "https://www.globalsqa.com/demo-site/draganddrop/";
@@ -34,7 +35,7 @@ public class ActionsDemoPage extends BasePage {
     @FindBy(xpath = PICTURE_RESTORE_FROM_TRASH_BUTTON)
     private WebElement pictureRestoreFromTrashButton;
 
-    public ActionsDemoPage(WebDriver driver) {
+    public ActionsDemoPage(WebDriver driver) {          //public ActionsDemoPage(WebDriver driver) {
         super(driver);
     }
 
@@ -52,7 +53,7 @@ public class ActionsDemoPage extends BasePage {
     }
 
     public boolean pictureIsInTrash(){
-        waitForElementClickableBy(By.xpath(PICTURE_IN_TRASH));
+        WebDriverUtils.waitForElementClickableBy(driver, By.xpath(PICTURE_IN_TRASH));
         logger.info("Picture is in trash");
         return pictureInTrash.isEnabled();
     }
@@ -67,10 +68,10 @@ public class ActionsDemoPage extends BasePage {
         logger.info("Picture restored");
         return picture.isDisplayed();
     }
-    private void clickUsingJavascript(WebElement elementForClick, By locationBeforeClick, By locationAfterClick){
+    public void clickUsingJavascript(WebElement elementForClick, By locationBeforeClick, By locationAfterClick){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        waitForElementClickableBy(locationBeforeClick);
+        WebDriverUtils.waitForElementClickableBy(driver, locationBeforeClick);
         js.executeScript("arguments[0].click();", elementForClick);
-        waitForElementClickableBy(locationAfterClick);
+        WebDriverUtils.waitForElementClickableBy(driver, locationAfterClick);
     }
 }

@@ -13,6 +13,7 @@ public class SearchedProductPage extends BasePage{
     private WebElement productName;
 
     public SearchedProductPage(WebDriver driver) {
+
         super(driver);
     }
 

@@ -2,9 +2,11 @@ package pageobject_model.page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import pageobject_model.driver.WebDriverUtils;
 
 public class HomePage extends BasePage{
     private static final String HOMEPAGE_URL = "https://www.marionnaud.fr/";
@@ -66,13 +68,13 @@ public class HomePage extends BasePage{
     public boolean hoverOverMenuItemParfum(){
         Actions builder = new Actions(driver);
         builder.moveToElement(menuItemParfum).build().perform();
-        waitForElementClickableBy(By.xpath(MENU_ITEM_PARFUM_FEMME_XPATH));
+        WebDriverUtils.waitForElementClickableBy(driver, By.xpath(MENU_ITEM_PARFUM_FEMME_XPATH));
         logger.info("Parfum Femme menu item is displayed");
         return menuItemParfumFemme.isDisplayed();
     }
 
     public HomePage closeBanner() {
-        if (waitForElementClickableBy(By.id(BANNER_CLOSE_BUTTON_ID))) {
+        if (WebDriverUtils.waitForElementClickableBy(driver, By.id(BANNER_CLOSE_BUTTON_ID))) {
             bannerCloseButton.click();
             logger.info("Banner is closed");
         }

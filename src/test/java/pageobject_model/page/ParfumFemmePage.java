@@ -24,18 +24,17 @@ public class ParfumFemmePage extends BasePage{
     public SearchedProductPage gotoSearchedProductPage(Product searchedProduct) {
         String productNameXpath = searchedProduct.getNameXpath();
         Actions builder = new Actions(driver);
-        waitForElementClickableBy(By.xpath(FULL_BRANDS_LIST));
+        logger.info("Name of driver class: " + driver.getClass().getName());
+
         fullBrandsListButton.click();
         logger.info("Full list of brands expanded");
 
         WebElement productBrand = driver.findElement(By.xpath(searchedProduct.getBrandXpath()));
-        waitForElementClickableBy(By.xpath(searchedProduct.getBrandXpath()));
         builder.moveToElement(productBrand)
                 .click(productBrand)
                 .perform();
         logger.info("Searched brand: "+ searchedProduct.getRangeName()+ " filtered");
 
-        waitForElementClickableBy(By.xpath(productNameXpath));
         driver.findElement(By.xpath(productNameXpath)).click();
         logger.info("Searched product selected");
 
