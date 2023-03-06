@@ -59,6 +59,12 @@
             <artifactId>logger-java-log4j</artifactId>
             <version>5.1.4</version>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
