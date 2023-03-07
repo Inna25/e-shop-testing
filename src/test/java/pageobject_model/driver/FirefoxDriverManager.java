@@ -33,6 +33,7 @@ public class FirefoxDriverManager extends DriverManager{
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("firefox");
         FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("test-type");
         options.merge(capabilities);
         driver = new FirefoxDriver(ffService, options);
     }

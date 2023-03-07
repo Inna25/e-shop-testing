@@ -59,9 +59,9 @@ public class MarionnaudTest extends BaseTest{
         assertThat(searchedProductPage.getProductRangeName(), is(equalTo(searchedProduct.getRangeName())));
     }
 
-//    @Test
-//    public void appearsSubmenuForParfumMenuItem() {
-//
-//        Assert.assertTrue(homePage.hoverOverMenuItemParfum());
-//    }
+    @Test
+    public void appearsSubmenuForParfumMenuItem() {
+
+        Assert.assertTrue(homePage.hoverOverMenuItemParfum());
+    }
 }
