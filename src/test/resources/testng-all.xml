@@ -6,4 +6,8 @@
             <package name="pageobject_model.test" />
         </packages>
     </test>
+    <listeners>
+        <listener class-name="pageobject_model.util.TestListener" />
+        <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener" />
+    </listeners>
 </suite>

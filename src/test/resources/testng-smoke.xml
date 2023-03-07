@@ -7,7 +7,7 @@
         </classes>
     </test>
     <listeners>
-<!--        <listener class-name="com.example.MyListener" />-->
+<!--        <listener class-name="pageobject_model.util.TestListener" />-->
         <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener" />
     </listeners>
 </suite>

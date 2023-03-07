@@ -76,13 +76,17 @@
                 <version>3.0.0-M8</version>
                 <configuration>
                     <properties>
-<!--                        <property>-->
-<!--                            <name>usedefaultlisteners</name>-->
-<!--                            <value>false</value> &lt;!&ndash; disabling default listeners is optional &ndash;&gt;-->
-<!--                        </property>-->
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value> <!-- disabling default listeners is optional -->
+                        </property>
                         <property>
                             <name>listener</name>
                             <value>com.epam.reportportal.testng.ReportPortalTestNGListener</value>
+                        </property>
+                        <property>
+                            <name>listener</name>
+                            <value>pageobject_model.util.TestListener</value>
                         </property>
                     </properties>
                 </configuration>

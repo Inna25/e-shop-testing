@@ -1,6 +1,6 @@
 package pageobject_model.util;
 
-import com.epam.reportportal.message.ReportPortalMessage;
+import com.epam.reportportal.service.ReportPortal;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class TestListener implements ITestListener {
     private Logger logger = LogManager.getRootLogger();
@@ -25,7 +26,7 @@ public class TestListener implements ITestListener {
 
     public void onTestSuccess(ITestResult iTestResult) {
         logger.info("on test method " + getTestMethodName(iTestResult) + " success");
-        saveScreenshot();
+       // saveScreenshot();
     }
 
     public void onTestFailure(ITestResult iTestResult) {
@@ -50,24 +51,17 @@ public class TestListener implements ITestListener {
     }
 
     private void saveScreenshot(){
-        String message = "Screenshot was saved in ";
         File screenCapture = ((TakesScreenshot) DriverManagerFactory.getManager().getDriver())
                 .getScreenshotAs(OutputType.FILE);
-//        try {
-//            ReportPortalMessage rp_message = new ReportPortalMessage(screenCapture, message);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         try {
             File screenCaptureInScreenshotsFolder = new File(
                     ".//target/screenshots/"
                             + getCurrentTimeAsString() +
                             ".png");
             FileUtils.copyFile(screenCapture, screenCaptureInScreenshotsFolder);
-            ReportPortalMessage rp_message = new ReportPortalMessage(screenCapture, message);
-            logger.info(message + System.getProperty("user.dir") +
+            logger.info("Screenshot was saved in " + System.getProperty("user.dir") +
                     screenCaptureInScreenshotsFolder.getPath().substring(1));
-            logger.info(rp_message);
+            ReportPortal.emitLog("Screenshot was taken", "INFO", Calendar.getInstance().getTime(), screenCapture);
         } catch (IOException e) {
             logger.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }

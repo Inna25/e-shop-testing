@@ -23,15 +23,15 @@ public class MarionnaudTest extends BaseTest{
         homePage = new HomePage(driver).openPage().closeBanner();
     }
 
-    @Test(description = "Some products contained keyword in the name were found while using a mouse")
-    public void searchProductResultsNotEmptyTest() {
-        Product searchedProduct = ProductCreator.withRangeNameOnly();
-        int searchResultsNumber = homePage
-                .searchForTermUsingSearchButtonClick(searchedProduct.getRangeName())
-                .countSearchResults();
-        Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
-    }
-
+//    @Test(description = "Some products contained keyword in the name were found while using a mouse")
+//    public void searchProductResultsNotEmptyTest() {
+//        Product searchedProduct = ProductCreator.withRangeNameOnly();
+//        int searchResultsNumber = homePage
+//                .searchForTermUsingSearchButtonClick(searchedProduct.getRangeName())
+//                .countSearchResults();
+//        Assert.assertTrue(searchResultsNumber > 0, "Search result is empty!");
+//    }
+//
 //    @Test(description = "Some products contained keyword in the name were found while using the keyboard")
 //    public void searchProductResultsNotEmptyUsingKeyboardTest() {
 //        Product searchedProduct = ProductCreator.withRangeNameOnly();
@@ -49,18 +49,19 @@ public class MarionnaudTest extends BaseTest{
 //        Assert.assertTrue(searchResultsNumber == 0, "Products were found ");
 //    }
 //
-//    @Test(description = "Search for a certain product using menu")
-//    public void searchForCertainProductUsingMenuTest() {
-//        Product searchedProduct = ProductCreator.withAllProductParameters();
-//        SearchedProductPage searchedProductPage = homePage.gotoParfumPage()
-//                .gotoParfumFemmePage()
-//                .gotoSearchedProductPage(searchedProduct);
-//        assertThat(searchedProductPage.getProductName(), is(equalTo(searchedProduct.getName())));
-//        assertThat(searchedProductPage.getProductRangeName(), is(equalTo(searchedProduct.getRangeName())));
-//    }
-//
+    @Test(description = "Search for a certain product using menu")
+    public void searchForCertainProductUsingMenuTest() {
+        Product searchedProduct = ProductCreator.withAllProductParameters();
+        SearchedProductPage searchedProductPage = homePage.gotoParfumPage()
+                .gotoParfumFemmePage()
+                .gotoSearchedProductPage(searchedProduct);
+        assertThat(searchedProductPage.getProductName(), is(equalTo(searchedProduct.getName())));
+        assertThat(searchedProductPage.getProductRangeName(), is(equalTo(searchedProduct.getRangeName())));
+    }
+
 //    @Test
 //    public void appearsSubmenuForParfumMenuItem() {
+//
 //        Assert.assertTrue(homePage.hoverOverMenuItemParfum());
 //    }
 }
