@@ -6,4 +6,8 @@
             <class name="pageobject_model.test.MarionnaudTest" />
         </classes>
     </test>
+    <listeners>
+<!--        <listener class-name="com.example.MyListener" />-->
+        <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener" />
+    </listeners>
 </suite>

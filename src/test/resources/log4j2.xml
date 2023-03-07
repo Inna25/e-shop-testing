@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
+<Configuration packages="com.epam.ta.reportportal.log4j.appender">
+    <properties>
+        <property name="pattern">[%d{HH:mm:ss}] %-5p (%F:%L) - %m%n</property>
+    </properties>
     <Appenders>
         <Console name="Console">
             <PatternLayout>
@@ -11,11 +14,15 @@
                 <Pattern>%d %p %c{2} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
+        <ReportPortalLog4j2Appender name="ReportPortalAppender">
+            <PatternLayout pattern="${pattern}" />
+        </ReportPortalLog4j2Appender>
     </Appenders>
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
+            <appender-ref ref="ReportPortalAppender"/>
         </Root>
     </Loggers>
 </Configuration>
