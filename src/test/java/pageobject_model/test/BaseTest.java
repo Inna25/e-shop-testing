@@ -1,6 +1,7 @@
 package pageobject_model.test;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 import pageobject_model.driver.DriverManager;
 import pageobject_model.driver.DriverManagerFactory;
@@ -24,5 +25,10 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     protected void browserTearDown() {
         driverManager.quitDriver();
+    }
+
+    @AfterClass
+    protected void browserQuit() {
+        driver.quit();
     }
 }

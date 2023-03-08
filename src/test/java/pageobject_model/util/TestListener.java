@@ -26,7 +26,7 @@ public class TestListener implements ITestListener {
 
     public void onTestSuccess(ITestResult iTestResult) {
         logger.info("on test method " + getTestMethodName(iTestResult) + " success");
-       // saveScreenshot();
+        saveScreenshot();
     }
 
     public void onTestFailure(ITestResult iTestResult) {

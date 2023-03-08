@@ -8,9 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.IOException;
+
 public class ChromeDriverManager extends DriverManager{
     private ChromeDriverService chService;
-//    private final Logger logger = LogManager.getRootLogger();
 
     @Override
     protected void startService() {
@@ -19,11 +20,14 @@ public class ChromeDriverManager extends DriverManager{
                 chService = new ChromeDriverService.Builder()
                         .usingAnyFreePort()
                         .build();
-//                logger.info("Service was successfully created " + chService);
-                chService.start();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        try {
+            chService.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
